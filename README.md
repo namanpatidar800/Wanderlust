@@ -67,6 +67,7 @@ Through this project, I gained hands-on experience in:
 ## 👨‍💻 Developer
 
 **Naman Patidar**
+
 B.tech C.S.E. Student
 
 GitHub: https://github.com/namanpatidar800

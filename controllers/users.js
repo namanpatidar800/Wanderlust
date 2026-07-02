@@ -5,7 +5,7 @@ module.exports.renderSignupFrom = (req, res) =>
     res.render("users/signup.ejs");
 };
 
-module.exports.signup = async (req, res) =>
+module.exports.signup = async (req, res, next) =>
 {
     try
     {

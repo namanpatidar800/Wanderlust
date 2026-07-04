@@ -70,7 +70,18 @@ module.exports.renderEditForm = async (req, res) =>
 module.exports.updateListing = async (req, res) =>
 {
     let {id} = req.params;
-    let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    let listing = await Listing.findById(id);
+    if (listing.location !== req.body.listing.location)
+    {
+        let response = await geocodingClient
+            .forwardGeocode({
+                query: req.body.listing.location,
+                limit: 1,
+            })
+            .send();
+        req.body.listing.geometry = response.body.features[0].geometry;
+    }
+    listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}, {new:true});
     
     if(typeof req.file !== "undefined")
     {

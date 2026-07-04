@@ -4,7 +4,11 @@ const Review = require("./review.js");
 
 const listingSchema = new Schema(
 {
-    title : {type : String, required : true},
+    title :
+    {
+        type : String,
+        required : true
+    },
     description : String,
     image :
     {
@@ -24,6 +28,20 @@ const listingSchema = new Schema(
     {
         type : Schema.Types.ObjectId,
         ref : "User"
+    },
+    geometry : 
+    {
+        type:
+        {
+            type: String, // Don't do `{ location: { type: String } }`
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true
+        },
+        coordinates:
+        {
+            type: [Number],
+            required: true
+        }
     }
 });
 

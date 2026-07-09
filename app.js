@@ -49,9 +49,9 @@ app.use(express.static(path.join(__dirname, "/public")));
 const store = MongoStore.create(
     {
         mongoUrl : dbUrl,
-        crypto : {
-            secret : process.env.SECRET,
-        },
+        // crypto : {
+        //     secret : process.env.SECRET,
+        // },
         touchAfter :24 * 3600,
     }
 );
@@ -128,9 +128,17 @@ app.use((req, res, next) =>
 
 app.use((err, req, res, next) =>
 {
-    let {statusCode = 500, message = "Something went wrong!"} = err;
-    res.status(statusCode).render("error.ejs", {message});
-    //res.status(statusCode).send(message);
+    console.log("========== ERROR ==========");
+    console.error(err);
+
+    if (res.headersSent)
+    {
+        return next(err);
+    }
+
+    let { statusCode = 500, message = "Something went wrong!" } = err;
+
+    res.status(statusCode).render("error.ejs", { message });
 });
 
 app.listen(8080, () =>

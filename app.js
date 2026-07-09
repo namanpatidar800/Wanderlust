@@ -111,9 +111,9 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-app.use("/", (req, res) =>
+app.get("/", (req, res) =>
 {
-    res.render("/listings/index.ejs");
+    res.redirect("/listings");
 });
 
 app.get("/privacy", (req, res) =>
@@ -132,18 +132,15 @@ app.use((req, res, next) =>
 });
 
 app.use((err, req, res, next) =>
-
 {
-
     let {statusCode = 500, message = "Something went wrong!"} = err;
-
     res.status(statusCode).render("error.ejs", {message});
-
     //res.status(statusCode).send(message);
-
 });
 
-app.listen(8080, () =>
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () =>
 {
-    console.log("Server is listening to port 8080.");
+    console.log(`Server is listening on port ${PORT}`);
 });

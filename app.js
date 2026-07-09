@@ -111,6 +111,11 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+app.use("/", (req, res) =>
+{
+    res.render("/listings/index.ejs");
+});
+
 app.get("/privacy", (req, res) =>
 {
     res.render("privacy.ejs");
@@ -127,18 +132,15 @@ app.use((req, res, next) =>
 });
 
 app.use((err, req, res, next) =>
+
 {
-    console.log("========== ERROR ==========");
-    console.error(err);
 
-    if (res.headersSent)
-    {
-        return next(err);
-    }
+    let {statusCode = 500, message = "Something went wrong!"} = err;
 
-    let { statusCode = 500, message = "Something went wrong!" } = err;
+    res.status(statusCode).render("error.ejs", {message});
 
-    res.status(statusCode).render("error.ejs", { message });
+    //res.status(statusCode).send(message);
+
 });
 
 app.listen(8080, () =>

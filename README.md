@@ -151,6 +151,7 @@ B.Tech CSE Student
 
 - GitHub: [@namanpatidar800](https://github.com/namanpatidar800)
 - LinkedIn: [namanpatidar](https://linkedin.com/in/namanpatidar)
+- Live Demo: [Wanderlust](https://wanderlust-6mp3.onrender.com)
 
 ## 📄 License
 
